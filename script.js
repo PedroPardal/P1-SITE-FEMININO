@@ -1,30 +1,31 @@
 document.getElementById('addProductForm').addEventListener('submit', function(event) {
-  event.preventDefault(); // Evita o comportamento padrão do formulário
-
-  // Captura os valores do formulário
-  const productName = document.getElementById('productNameInput').value;
-  const productPrice = document.getElementById('productPriceInput').value;
-  const productImage = document.getElementById('productImageInput').value;
-
-  // Cria um novo elemento de produto
-  const newProduct = `
-      <div class="product">
-          <img src="${productImage}" alt="${productName}" class="productImage">
-          <h2 class="productName">${productName}</h2>
-          <h3 class="productPrice">R$ ${productPrice}</h3>
-          <button class="comprebutton">COMPRE AGORA</button>
-      </div>
+  event.preventDefault(); // Impede o envio do formulário
+  
+  // Obter valores dos campos
+  var productName = document.getElementById('productNameInput').value;
+  var productPrice = document.getElementById('productPriceInput').value;
+  var productImage = document.getElementById('productImageInput').value;
+  var productSize = document.getElementById('productSize').value;
+  var productDescription = document.getElementById('productDescriptionInput').value;
+  
+  // Criar um novo elemento de produto
+  var newProduct = document.createElement('div');
+  newProduct.classList.add('product');
+  newProduct.innerHTML = `
+      <img src="${productImage}" alt="" class="productImage">
+      <h2 class="productName">${productName}</h2>
+      <p class="productSize">Tamanho: ${productSize}</p>
+      <p class="productDescription">${productDescription}</p>
+      <h3 class="productPrice">R$ ${productPrice}</h3>
+      <button class="comprebutton">COMPRE AGORA</button>
   `;
+  
+  // Adicionar o novo produto à lista de produtos
+  document.getElementById('productList').appendChild(newProduct);
 
-  // Adiciona o novo produto à lista de produtos
-  document.getElementById('productList').insertAdjacentHTML('beforeend', newProduct);
-
-  // Limpa o formulário
-  document.getElementById('productNameInput').value = '';
-  document.getElementById('productPriceInput').value = '';
-  document.getElementById('productImageInput').value = '';
+  // Resetar o formulário
+  document.getElementById('addProductForm').reset();
 });
-
 
 const wrapper = document.querySelector(".sliderWrapper");
 const menuItems = document.querySelectorAll(".menuItem");
