@@ -17,9 +17,12 @@ body {
 }
 
 nav {
+  position:fixed;
+  width: 100%;
   background-color: #111;
   color: white;
   padding: 20px 50px;
+  z-index: 999
 }
 
 .navTop {
@@ -98,7 +101,6 @@ nav {
 }
 
 .sliderTitle {
-  position: static;
   top: 10%;
   right: 10%;
   font-size: 60px;
