@@ -2,11 +2,17 @@ document.getElementById('addProductForm').addEventListener('submit', function(ev
   event.preventDefault(); // Impede o envio do formulário
   
   // Obter valores dos campos
-  var productName = document.getElementById('productNameInput').value;
-  var productPrice = document.getElementById('productPriceInput').value;
-  var productImage = document.getElementById('productImageInput').value;
-  var productSize = document.getElementById('productSize').value;
-  var productDescription = document.getElementById('productDescriptionInput').value;
+  var productName = document.getElementById('productNameInput').value.trim();
+  var productPrice = document.getElementById('productPriceInput').value.trim();
+  var productImage = document.getElementById('productImageInput').value.trim();
+  var productSize = document.getElementById('productSize').value.trim();
+  var productDescription = document.getElementById('productDescriptionInput').value.trim();
+  
+  // Verificar se algum campo está vazio
+  if (productName === '' || productPrice === '' || productImage === '' || productSize === '' || productDescription === '') {
+    alert('Por favor, preencha todos os campos antes de adicionar o produto.');
+    return; // Retorna sem adicionar o produto
+  }
   
   // Criar um novo elemento de produto
   var newProduct = document.createElement('div');
@@ -27,16 +33,20 @@ document.getElementById('addProductForm').addEventListener('submit', function(ev
   document.getElementById('addProductForm').reset();
 });
 
-const wrapper = document.querySelector(".sliderWrapper");
-const menuItems = document.querySelectorAll(".menuItem");
+// Função para filtrar os produtos com base no texto de pesquisa
+function filterProducts() {
+  const searchInput = document.getElementById('searchInput').value.toLowerCase();
+  const products = document.querySelectorAll('.product');
 
-menuItems.forEach((item, index) => {
-  item.addEventListener("click", () => {
-    // Altera o slide atual
-    wrapper.style.transform = `translateX(${-100 * index}vw)`;
-
-    // Altera o produto escolhido
-    choosenProduct = products[index];
+  products.forEach(product => {
+      const productName = product.querySelector('.productName').textContent.toLowerCase();
+      if (productName.includes(searchInput)) {
+          product.style.display = 'block'; // Exibir produto se o nome corresponder ao texto de pesquisa
+      } else {
+          product.style.display = 'none'; // Ocultar produto se o nome não corresponder ao texto de pesquisa
+      }
   });
-});
+}
 
+// Evento de escuta para detectar mudanças na barra de pesquisa
+document.getElementById('searchInput').addEventListener('input', filterProducts);
